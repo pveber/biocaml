@@ -55,6 +55,14 @@ Library biocaml
            , Biocaml_util
            , Biocaml_wig
 
+Library "biocaml_wrappers"
+  Path:          src/wrappers
+  BuildTools:    ocamlbuild
+  FindlibParent: biocaml
+  FindlibName:   wrappers
+  BuildDepends:  batteries
+  Modules:       Biocaml_wrappers
+
 Executable gff_counts
   Path:   ./src/app/
   MainIs: gff_counts.ml
