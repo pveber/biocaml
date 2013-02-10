@@ -122,6 +122,7 @@ val loop : 'a -> f:(int -> 'a -> 'a option) -> 'a t
     The stream is infinite if [f] never returns None. *)
 val unfold : 'a -> ('a -> ('b * 'a) option) -> 'b t
 
+val of_lazy : 'a t lazy_t -> 'a t
 
 (** {6 Iterators}
     Unless otherwise stated, functions in this section normally
