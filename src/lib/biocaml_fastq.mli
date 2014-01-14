@@ -160,6 +160,10 @@ val qualities_of_line :
   Biocaml_line.t ->
   string
 
+module Make (Future : Future.S) : sig
+  val get : Future.Reader.t -> item Future.Pipe.Reader.t
+end
+include module type of Make(Future_blocking)
 
 (** {2 S-Expressions } *)
 

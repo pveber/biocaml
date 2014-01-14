@@ -91,6 +91,43 @@ let qualities_of_line ?(pos=Pos.unknown) ?sequence line =
     else
       line
 
+module Make (Future : Future.S) = struct
+  open Future
+
+  let get ic =
+    let read_one ic =
+      Reader.read_line ic >>= function
+      | `Eof -> return `Eof
+      | `Ok line -> (
+        let name = name_of_line (Line.of_string_unsafe line) in
+        Reader.read_line ic >>= function
+        | `Eof -> raise (
+          Parse_error
+            (Pos.unknown, "premature end-of-input, no sequence line")
+        )
+        | `Ok line -> (
+          let sequence = sequence_of_line (Line.of_string_unsafe line) in
+          Reader.read_line ic >>= function
+          | `Eof -> raise (
+            Parse_error
+              (Pos.unknown, "premature end-of-input, no comment line")
+          )
+          | `Ok line -> (
+            let comment = comment_of_line (Line.of_string_unsafe line) in
+            Reader.read_line ic >>= function
+            | `Eof -> raise (
+              Parse_error
+                (Pos.unknown, "premature end-of-input, no qualities line")
+            )
+            | `Ok line ->
+              let qualities = qualities_of_line (Line.of_string_unsafe line) in
+              return (`Ok {name; sequence; comment; qualities})
+	  ) ) )
+    in
+    Reader.read_all ic read_one
+
+end
+include Make(Future_blocking)
 
 module Transform = struct
   let string_to_item ?filename () =
