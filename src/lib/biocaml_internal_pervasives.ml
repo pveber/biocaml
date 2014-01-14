@@ -204,3 +204,5 @@ module Debug = struct
 
 
 end
+
+module Future = Biocaml_future

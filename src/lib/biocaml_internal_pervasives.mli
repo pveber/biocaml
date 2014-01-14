@@ -157,3 +157,5 @@ module Debug: sig
   val make : string -> ('a, unit, string, unit) format4 -> 'a
 
 end
+
+module Future : module type of Biocaml_future
