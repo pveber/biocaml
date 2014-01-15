@@ -1,5 +1,5 @@
 include Biocaml_internal_pervasives
-include Lwt
+open Lwt
 
 module Future_lwt = struct
   module Deferred = struct

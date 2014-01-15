@@ -1,5 +1,5 @@
 include module type of Biocaml_internal_pervasives
-include module type of Lwt
+open Lwt
 
 module Future_lwt : Future.S
   with type 'a Deferred.t = 'a Lwt.t
