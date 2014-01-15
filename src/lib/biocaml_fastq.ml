@@ -101,21 +101,21 @@ module Make (Future : Future.S) = struct
       | `Ok line -> (
         let name = name_of_line (Line.of_string_unsafe line) in
         Reader.read_line ic >>= function
-        | `Eof -> raise (
+        | `Eof -> fail (
           Parse_error
             (Pos.unknown, "premature end-of-input, no sequence line")
         )
         | `Ok line -> (
           let sequence = sequence_of_line (Line.of_string_unsafe line) in
           Reader.read_line ic >>= function
-          | `Eof -> raise (
+          | `Eof -> fail (
             Parse_error
               (Pos.unknown, "premature end-of-input, no comment line")
           )
           | `Ok line -> (
             let comment = comment_of_line (Line.of_string_unsafe line) in
             Reader.read_line ic >>= function
-            | `Eof -> raise (
+            | `Eof -> fail (
               Parse_error
                 (Pos.unknown, "premature end-of-input, no qualities line")
             )

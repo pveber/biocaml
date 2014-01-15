@@ -38,6 +38,8 @@ module Future_lwt = struct
   let (>>|) = Deferred.(>>|)
   let (>>=?) = Deferred.Result.(>>=)
   let (>>|?) = Deferred.Result.(>>|)
+  let fail = Lwt.fail
+  let raise = `Use_fail_instead
 
   module Pipe = struct
     module Reader = struct

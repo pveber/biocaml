@@ -31,6 +31,9 @@ module type S = sig
     ('a -> 'c) ->
     ('c, 'b) Deferred.Result.t
 
+  val fail : exn -> 'a Deferred.t
+  val raise : [> `Use_fail_instead ]
+
   module Pipe : sig
     module Reader : sig
       type 'a t

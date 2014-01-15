@@ -235,6 +235,8 @@ module Future_blocking = struct
   let (>>|) = Deferred.(>>|)
   let (>>=?) = Deferred.Result.(>>=)
   let (>>|?) = Deferred.Result.(>>|)
+  let fail = raise
+  let raise = `Use_fail_instead
 
   module Pipe = struct
     module Reader = struct
