@@ -57,7 +57,7 @@ TESTS_PACKAGES = $(LIB_PACKAGES) oUnit
 BENCHMARKS_NAME = biocaml_benchmarks
 BENCHMARKS_MODULES[] =
   $(removesuffix $(basename $(ls src/benchmarks/*.ml)))
-BENCHMARKS_PACKAGES = $(LIB_PACKAGES)
+BENCHMARKS_PACKAGES = $(LIB_PACKAGES) lwt.unix
 
 ODOC_NAME = $(PROJECT)_odoc
 ODOC_MODULES[] =
@@ -291,8 +291,8 @@ public.OCamlLibraryWithCFiles(name, files, c_files) =
   ##############################################################################
   # Benchmarks
   .SUBDIRS: _build/benchmarks
-    OCAML_LIBS = ../lib/biocaml
-    OCAMLINCLUDES += $(dir ../lib/)
+    OCAML_LIBS = ../lib/biocaml ../lib_lwt/biocaml_lwt
+    OCAMLINCLUDES += $(dir ../lib/ ../lib_lwt)
     OCAMLPACKS[] = $(BENCHMARKS_PACKAGES)
 
     %.ml: ../lib/biocaml.cma
